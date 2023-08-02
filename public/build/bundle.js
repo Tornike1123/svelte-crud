@@ -446,13 +446,81 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (42:8) {#each products as product}
+    // (64:16) {:else}
+    function create_else_block(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (!src_url_equal(img.src, img_src_value = /*product*/ ctx[1].imageURL)) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "image");
+    			attr_dev(img, "class", "img-fluid p-2");
+    			add_location(img, file, 65, 18, 1372);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*products*/ 1 && !src_url_equal(img.src, img_src_value = /*product*/ ctx[1].imageURL)) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(64:16) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (58:16) {#if !product.imageURL}
+    function create_if_block(ctx) {
+    	let img;
+    	let img_src_value;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			if (!src_url_equal(img.src, img_src_value = "/image/no_products.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "img");
+    			attr_dev(img, "class", "img-fluid p-2");
+    			add_location(img, file, 58, 18, 1119);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+    		p: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(58:16) {#if !product.imageURL}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (54:8) {#each products as product}
     function create_each_block(ctx) {
     	let div4;
     	let div3;
     	let div0;
-    	let img;
-    	let img_src_value;
     	let t0;
     	let div2;
     	let div1;
@@ -475,12 +543,20 @@ var app = (function () {
     	let button1;
     	let t10;
 
+    	function select_block_type(ctx, dirty) {
+    		if (!/*product*/ ctx[1].imageURL) return create_if_block;
+    		return create_else_block;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
     	const block = {
     		c: function create() {
     			div4 = element("div");
     			div3 = element("div");
     			div0 = element("div");
-    			img = element("img");
+    			if_block.c();
     			t0 = space();
     			div2 = element("div");
     			div1 = element("div");
@@ -501,36 +577,32 @@ var app = (function () {
     			button1 = element("button");
     			button1.textContent = "Edit";
     			t10 = space();
-    			if (!src_url_equal(img.src, img_src_value = "/image/no_products.png")) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", "img");
-    			attr_dev(img, "class", "img-fluid p-2");
-    			add_location(img, file, 45, 16, 905);
     			attr_dev(div0, "class", "col-md-4");
-    			add_location(div0, file, 44, 14, 866);
-    			add_location(strong, file, 54, 20, 1185);
-    			add_location(small, file, 56, 22, 1266);
-    			add_location(span, file, 55, 20, 1237);
-    			add_location(h5, file, 53, 18, 1160);
+    			add_location(div0, file, 56, 14, 1038);
+    			add_location(strong, file, 75, 20, 1678);
+    			add_location(small, file, 77, 22, 1759);
+    			add_location(span, file, 76, 20, 1730);
+    			add_location(h5, file, 74, 18, 1653);
     			attr_dev(p, "class", "card-text");
-    			add_location(p, file, 61, 18, 1418);
+    			add_location(p, file, 82, 18, 1911);
     			attr_dev(button0, "class", "btn btn-danger");
-    			add_location(button0, file, 62, 18, 1483);
+    			add_location(button0, file, 83, 18, 1976);
     			attr_dev(button1, "class", "btn btn-secondary");
-    			add_location(button1, file, 63, 18, 1550);
+    			add_location(button1, file, 84, 18, 2043);
     			attr_dev(div1, "class", "card-body");
-    			add_location(div1, file, 52, 16, 1118);
+    			add_location(div1, file, 73, 16, 1611);
     			attr_dev(div2, "class", "col-md-8");
-    			add_location(div2, file, 51, 14, 1079);
+    			add_location(div2, file, 72, 14, 1572);
     			attr_dev(div3, "class", "row");
-    			add_location(div3, file, 43, 12, 834);
+    			add_location(div3, file, 55, 12, 1006);
     			attr_dev(div4, "class", "card mt-2");
-    			add_location(div4, file, 42, 10, 798);
+    			add_location(div4, file, 54, 10, 970);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
     			append_dev(div4, div3);
     			append_dev(div3, div0);
-    			append_dev(div0, img);
+    			if_block.m(div0, null);
     			append_dev(div3, t0);
     			append_dev(div3, div2);
     			append_dev(div2, div1);
@@ -551,12 +623,25 @@ var app = (function () {
     			append_dev(div4, t10);
     		},
     		p: function update(ctx, dirty) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div0, null);
+    				}
+    			}
+
     			if (dirty & /*products*/ 1 && t1_value !== (t1_value = /*product*/ ctx[1].name + "")) set_data_dev(t1, t1_value);
     			if (dirty & /*products*/ 1 && t3_value !== (t3_value = /*product*/ ctx[1].category + "")) set_data_dev(t3, t3_value);
     			if (dirty & /*products*/ 1 && t5_value !== (t5_value = /*product*/ ctx[1].description + "")) set_data_dev(t5, t5_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div4);
+    			if_block.d();
     		}
     	};
 
@@ -564,7 +649,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(42:8) {#each products as product}",
+    		source: "(54:8) {#each products as product}",
     		ctx
     	});
 
@@ -644,58 +729,59 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Save Product";
     			attr_dev(div0, "class", "col-md-6");
-    			add_location(div0, file, 40, 6, 729);
+    			add_location(div0, file, 52, 6, 901);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "placeholder", "Product Name");
     			attr_dev(input0, "id", "product-name");
     			attr_dev(input0, "class", "form-control");
-    			add_location(input0, file, 75, 16, 1916);
+    			input0.required = true;
+    			add_location(input0, file, 96, 16, 2409);
     			attr_dev(div1, "class", "form-group");
-    			add_location(div1, file, 74, 14, 1875);
+    			add_location(div1, file, 95, 14, 2368);
     			attr_dev(textarea, "name", "product-description");
     			attr_dev(textarea, "id", "product-image-url");
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "placeholder", "Product Description");
     			attr_dev(textarea, "class", "form-control");
-    			add_location(textarea, file, 84, 16, 2212);
+    			add_location(textarea, file, 106, 16, 2739);
     			attr_dev(div2, "class", "form-group");
-    			add_location(div2, file, 83, 14, 2171);
+    			add_location(div2, file, 105, 14, 2698);
     			attr_dev(input1, "type", "url");
     			attr_dev(input1, "id", "product-image-url");
     			attr_dev(input1, "placeholder", "https://faztweb.com/");
     			attr_dev(input1, "class", "form-control");
-    			add_location(input1, file, 94, 16, 2582);
+    			add_location(input1, file, 116, 16, 3109);
     			attr_dev(div3, "class", "form-group");
-    			add_location(div3, file, 93, 14, 2541);
+    			add_location(div3, file, 115, 14, 3068);
     			option0.__value = "laptops";
     			option0.value = option0.__value;
-    			add_location(option0, file, 108, 18, 3057);
+    			add_location(option0, file, 130, 18, 3584);
     			option1.__value = "peripherials";
     			option1.value = option1.__value;
-    			add_location(option1, file, 109, 18, 3116);
+    			add_location(option1, file, 131, 18, 3643);
     			option2.__value = "Servers";
     			option2.value = option2.__value;
-    			add_location(option2, file, 110, 18, 3185);
+    			add_location(option2, file, 132, 18, 3712);
     			attr_dev(select, "id", "category");
     			attr_dev(select, "class", "form-control");
     			if (/*product*/ ctx[1].category === void 0) add_render_callback(() => /*select_change_handler*/ ctx[6].call(select));
-    			add_location(select, file, 103, 16, 2894);
+    			add_location(select, file, 125, 16, 3421);
     			attr_dev(div4, "class", "form-group");
-    			add_location(div4, file, 102, 14, 2853);
+    			add_location(div4, file, 124, 14, 3380);
     			attr_dev(button, "class", "btn btn-secondary");
-    			add_location(button, file, 114, 14, 3288);
-    			add_location(form, file, 73, 12, 1811);
+    			add_location(button, file, 136, 14, 3815);
+    			add_location(form, file, 94, 12, 2304);
     			attr_dev(div5, "class", "card-body");
-    			add_location(div5, file, 72, 10, 1775);
+    			add_location(div5, file, 93, 10, 2268);
     			attr_dev(div6, "class", "card");
-    			add_location(div6, file, 71, 8, 1746);
+    			add_location(div6, file, 92, 8, 2239);
     			attr_dev(div7, "class", "col-md-6");
-    			add_location(div7, file, 70, 6, 1715);
+    			add_location(div7, file, 91, 6, 2208);
     			attr_dev(div8, "class", "row");
-    			add_location(div8, file, 39, 4, 705);
+    			add_location(div8, file, 51, 4, 877);
     			attr_dev(div9, "class", "container");
-    			add_location(div9, file, 38, 2, 677);
-    			add_location(main, file, 37, 0, 668);
+    			add_location(div9, file, 50, 2, 849);
+    			add_location(main, file, 49, 0, 840);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -849,6 +935,17 @@ var app = (function () {
     		};
 
     		$$invalidate(0, products = products.concat(newProduct));
+    		cleanProdut();
+    	};
+
+    	const cleanProdut = () => {
+    		$$invalidate(1, product = {
+    			id: "",
+    			name: "",
+    			description: "",
+    			category: "",
+    			imageURL: ""
+    		});
     	};
 
     	const writable_props = [];
@@ -877,7 +974,12 @@ var app = (function () {
     		$$invalidate(1, product);
     	}
 
-    	$$self.$capture_state = () => ({ products, product, onSubmitHandler });
+    	$$self.$capture_state = () => ({
+    		products,
+    		product,
+    		onSubmitHandler,
+    		cleanProdut
+    	});
 
     	$$self.$inject_state = $$props => {
     		if ('products' in $$props) $$invalidate(0, products = $$props.products);

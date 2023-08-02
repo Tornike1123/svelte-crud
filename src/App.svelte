@@ -32,6 +32,18 @@
     };
 
     products = products.concat(newProduct);
+
+    cleanProdut();
+  };
+
+  const cleanProdut = () => {
+    product = {
+      id: "",
+      name: "",
+      description: "",
+      category: "",
+      imageURL: "",
+    };
   };
 </script>
 
@@ -43,11 +55,20 @@
           <div class="card mt-2">
             <div class="row">
               <div class="col-md-4">
-                <img
-                  src="/image/no_products.png"
-                  alt="img"
-                  class="img-fluid p-2"
-                />
+                {#if !product.imageURL}
+                  <img
+                    src="/image/no_products.png"
+                    alt="img"
+                    class="img-fluid p-2"
+                  />
+                {:else}
+                  <!-- svelte-ignore a11y-img-redundant-alt -->
+                  <img
+                    src={product.imageURL}
+                    alt="image"
+                    class="img-fluid p-2"
+                  />
+                {/if}
               </div>
               <div class="col-md-8">
                 <div class="card-body">
@@ -79,6 +100,7 @@
                   placeholder="Product Name"
                   id="product-name"
                   class="form-control"
+                  required={true}
                 />
               </div>
               <div class="form-group">
