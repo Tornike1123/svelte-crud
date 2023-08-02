@@ -23,7 +23,15 @@
   };
 
   const onSubmitHandler = (e) => {
-    console.log(product);
+    const newProduct = {
+      id: product.lenght,
+      name: product.name,
+      description: product.description,
+      category: product.category,
+      imageURL: product.imageURL,
+    };
+
+    products = products.concat(newProduct);
   };
 </script>
 
